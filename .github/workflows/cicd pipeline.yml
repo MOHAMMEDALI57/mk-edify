@@ -1,5 +1,6 @@
 name: CI-CD pipeline
-on: workflow_dispatch
+on:
+  workflow_dispatch:
 
 jobs:
   slack-notification:
@@ -11,15 +12,18 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-            
-              text": "Edify Course application build started"
-              channel": "devops-2510-13"
-   build:
+            {
+              "text": "Edify Course application build started",
+              "channel": "devops-2510-13"
+            }
+
+  build:
     needs: slack-notification
     runs-on: ubuntu-latest
     steps:
       - name: clone code
         uses: actions/checkout@v2.2
+
       - name: build docker image
         run: docker build -t ${{ vars.DOCKER_USERNAME }}/edify-app:latest .
 
@@ -28,7 +32,7 @@ jobs:
         with:
           username: ${{ vars.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-         
+
       - name: push image to docker hub
         run: docker push ${{ vars.DOCKER_USERNAME }}/edify-app:latest
 
@@ -55,9 +59,11 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           webhook-type: incoming-webhook
           payload: |
-      
-              text: "Edify Course application Deployed successfully go and check it in browser",
-              channel: "devops-2510-13"
+            {
+              "text": "Edify Course application Deployed successfully. Go and check it in browser",
+              "channel": "devops-2510-13"
+            }
+"
  
        
 
