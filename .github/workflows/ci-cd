@@ -13,7 +13,7 @@ jobs:
           payload: |
             
               text": "Edify Course application build started"
-              channel": "devops-2510-13"
+              channel": "devops- 2510-13"
    build:
     needs: slack-notification
     runs-on: ubuntu-latest
