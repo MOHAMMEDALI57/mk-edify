@@ -31,10 +31,12 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps: 
+      - name: remove old deployments
+        run: docker container rm -f mk-edify
       - name: deploy and run container
         run: |
           docker pull ${{ vars.DOCKER_USERNAME }}/mk-edify:latest
-          docker run -d -p 80:80 --name mk-edify ${{ vars.DOCKER_USERNAME }}/mk-edify:latest
+          docker run -d -p 8080:80 --name mk-edify ${{ vars.DOCKER_USERNAME }}/mk-edify:latest
       - name: Notify Slack - Deployment Completed
         uses: slackapi/slack-github-action@v1.25.0
         with:
