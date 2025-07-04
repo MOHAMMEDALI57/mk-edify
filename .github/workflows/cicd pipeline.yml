@@ -14,7 +14,7 @@ jobs:
           payload: |
             {
               "text": "Edify Course application build started",
-              "channel": "devops-2510-13"
+              "channel": "webhook"
             }
 
   build:
@@ -61,7 +61,7 @@ jobs:
           payload: |
             {
               "text": "Edify Course application Deployed successfully. Go and check it in browser",
-              "channel": "devops-2510-13"
+              "channel": "webhook"
             }
 
         
