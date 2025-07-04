@@ -28,7 +28,7 @@ jobs:
       - name: Push Docker image
         run: docker push ${{ vars.DOCKER_USERNAME }}/mk-edify:latest
   deploy:
-    runs-on: selfhosted
+    runs-on: self-hosted
     needs: build
     steps: 
       - name: deploy and run container
